@@ -23,17 +23,19 @@ namespace DoListFinal.Controllers
             List<UserBank> indexbanklist = new List<UserBank>();
             indexbanklist = db.UserBanks.ToList();
 
+            //checks if current user has an associated object in the database which stores indexes for that user's  to do list items; displays those items if found
             foreach (UserBank indexbank in indexbanklist )
             {
                 if (indexbank.AppUserID == User.Identity.GetUserId())
                 {
+                    //indexes are stored as numbers in a string separated by commas -- creates array of strings each containing a single index
                     string[] index_array_strings = indexbank.Item_indexes.Split(',');
                     foreach (string ind in index_array_strings)
                     {
                         int ident;
                         if (Int32.TryParse(ind, out ident))
                         {
-
+                            //if list item corresponding to index is found, adds that item to the list of items which is later passed to view 
                             if (db.List_Items.Find(ident) != null)
                             {
                                 List_Items item_to_add = db.List_Items.Find(ident);
@@ -45,9 +47,9 @@ namespace DoListFinal.Controllers
                     }
                 }
             }
-
+            //sorts list items in order of priority 
             List<List_Items> sortedlist = display_list.OrderBy(o => o.priority).ToList();
-            //return View(display_list);
+           
             return View(sortedlist);
         }
 
@@ -81,6 +83,8 @@ namespace DoListFinal.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                //pulls all stored index objects from database and if one matches current user, updates the list of indexes in that object upon list item creation
                 List<UserBank> banklist = new List<UserBank>();
                 banklist = db.UserBanks.ToList();
                 foreach (UserBank u in banklist)
@@ -89,6 +93,9 @@ namespace DoListFinal.Controllers
                     {
                         db.List_Items.Add(list_Items);
                         db.SaveChanges();
+
+                        //this is important because saving the context to the database may change the list item's primary key value
+
                         int ind = db.Entry(list_Items).CurrentValues.GetValue<int>("ID");
                         u.Item_indexes = u.Item_indexes + ind.ToString() + ",";
                         db.Entry(u).State = EntityState.Modified;
@@ -100,12 +107,16 @@ namespace DoListFinal.Controllers
                     
                 }
 
+                //this code is only reached if no existing userbank object is found which matches current user ID (i.e. when new user creates list item for the first time).
+                //creates new userbank object and stores the new list item's index.
                 db.List_Items.Add(list_Items);
                 db.SaveChanges();
                 UserBank newbank = new UserBank();
                 newbank.AppUserID = User.Identity.GetUserId();
                 newbank.Item_indexes = "";
-               
+
+                //this is important because saving the context to the database may change the list item's primary key value
+
                 int indd = db.Entry(list_Items).CurrentValues.GetValue<int>("ID");
                 newbank.Item_indexes = newbank.Item_indexes + indd.ToString() + ",";
                 db.UserBanks.Add(newbank);
