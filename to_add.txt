@@ -1,0 +1,10 @@
+functionality to add:
+
+- add due date property 
+- break ties in item sorting according to due date	
+	potentially add due date categories for if you don't want to input a specific date
+	could easily do this by storing as string and checking if its one of three strings then attempting to convert to int 
+-allow for sub-items. attach objects to the object. 
+	will code first migrations set up the data table properly for this?
+-is it acceptible to code the logic for displaying the sub item into the view as an if statement? is there a way to have the model implement this distinction, or the controller?
+
