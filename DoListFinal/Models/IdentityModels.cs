@@ -32,6 +32,6 @@ namespace DoListFinal.Models
 
         public System.Data.Entity.DbSet<DoListFinal.Models.List_Items> List_Items { get; set; }
 
-        public System.Data.Entity.DbSet<DoListFinal.Models.UserBank> UserBanks { get; set; }
+      //  public System.Data.Entity.DbSet<DoListFinal.Models.UserBank> UserBanks { get; set; }
     }
 }

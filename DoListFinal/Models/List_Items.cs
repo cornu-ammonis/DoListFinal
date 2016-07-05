@@ -11,5 +11,7 @@ namespace DoListFinal.Models
         public int ID { get; set; }
         public string Description { get; set; }
         public int priority { get; set; }
+        public string User_ID { get; set; }
+
     }
 }
