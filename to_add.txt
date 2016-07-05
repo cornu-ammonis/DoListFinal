@@ -8,12 +8,3 @@ functionality to add:
 	will code first migrations set up the data table properly for this?
 -is it acceptible to code the logic for displaying the sub item into the view as an if statement? is there a way to have the model implement this distinction, or the controller?
 
-
-***
-resources to read: 
-
-https://www.quora.com/What-should-a-fullstack-developer-know-in-2016-1
-
-http://www.cesarkallas.net/arquivos/livros/informatica/Gang%20Of%20Four%20-%20Design%20Patterns,%20Elements%20Of%20Reusable%20Object%20Oriented%20Software%20-%20Addison%20Wesley%20-%20Site%2051.pdf
-
-http://www.introprogramming.info/english-intro-csharp-book/
