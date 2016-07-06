@@ -82,6 +82,5 @@ C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFi
 C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.csproj.GenerateResource.Cache
 C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.dll
 C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.pdb
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.Migrations.User_ID.resources
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.Migrations.init2.resources
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.Migrations.list_items.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.Migrations.testinher.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Release\DoListFinal.Migrations.testinher2.resources

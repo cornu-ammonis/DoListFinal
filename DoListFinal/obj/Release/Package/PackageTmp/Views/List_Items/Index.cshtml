@@ -1,39 +1,68 @@
-﻿@model IEnumerable<DoListFinal.Models.List_Items>
+﻿@using DoListFinal.Models
+@model ViewModel
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Your List";
 }
 
-<h2>Index</h2>
+<h2>Your List </h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.priority)
+            Priority
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.priority)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (Uncompleted_List_Item item in Model.uncompleted_items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priority)
+            </td>
+            <td>
+                @Html.ActionLink("Done ", "Mark_Complete", new { id = item.ID })| <!--  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+              <!---   //Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
+                
+            </td>
+        </tr>
+    }
 
-</table>
+
+
+    @foreach (Completed_List_Items item in Model.completed_items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                
+                @Html.DisplayFor(modelItem => item.priority)
+                (completed)
+            </td>
+            <td>
+                @Html.ActionLink("Done ", "Mark_Uncomplete", new { id = item.ID }) | <!-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID })    |
+               <!--- Html.ActionLink("Details", "Details", new { id = item.ID }) |--> 
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
+               
+            </td>
+        </tr>
+    }
+
+    </table>

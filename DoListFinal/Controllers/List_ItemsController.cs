@@ -19,21 +19,83 @@ namespace DoListFinal.Controllers
         public ActionResult Index()
         {
             string current_user = User.Identity.GetUserId();
-            List<List_Items> list_for_view = new List<List_Items>();
-            IEnumerable<List_Items> ListQuery =
-                from q in db.List_Items
+            ViewModel view_model = new ViewModel();
+
+           List<Uncompleted_List_Item> uncompleted_list_for_view = new List<Uncompleted_List_Item>();
+           List<Completed_List_Items> completed_list_for_view = new List<Completed_List_Items>();
+
+            IEnumerable<Uncompleted_List_Item> ListQuery =
+                from q in db.Uncompleted_List_Items
                 where q.User_ID == current_user
                 orderby q.priority
                 select q;
 
-            foreach (List_Items L in ListQuery)
+            foreach (Uncompleted_List_Item L in ListQuery)
             {
-                list_for_view.Add(L);
+                uncompleted_list_for_view.Add(L);
             }
 
-            return View(list_for_view);
+            IEnumerable<Completed_List_Items> CompletedListQuery =
+                   from q in db.Completed_List_Items
+                   where q.User_ID == current_user
+                   orderby q.priority
+                   select q;
+
+            bool which_list = false;
+            foreach (Completed_List_Items L in CompletedListQuery)
+            {
+                if (L != null)
+                {
+                    which_list = true;
+                }
+                completed_list_for_view.Add(L);
+            }
+
+            view_model.uncompleted_items = uncompleted_list_for_view;
+            view_model.completed_items = completed_list_for_view;
+            return View(view_model);
 
 
+        }
+
+
+        public ActionResult Mark_Complete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List_Items list_item = db.List_Items.Find(id);
+            if (list_item == null)
+            {
+                return HttpNotFound();
+            }
+
+            Completed_List_Items completed_to_add = new Completed_List_Items(list_item.Description, list_item.priority, list_item.User_ID);
+            db.List_Items.Remove(list_item);
+            db.Completed_List_Items.Add(completed_to_add);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Mark_Uncomplete (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            List_Items list_item = db.List_Items.Find(id);
+            if (list_item == null)
+            {
+                return HttpNotFound();
+            }
+
+            Uncompleted_List_Item uncompleted_to_add = new Uncompleted_List_Item(list_item.Description, list_item.priority, list_item.User_ID);
+            db.List_Items.Remove(list_item);
+            db.Uncompleted_List_Items.Add(uncompleted_to_add);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: List_Items/Details/5
@@ -62,7 +124,7 @@ namespace DoListFinal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Description,priority")] List_Items list_Items)
+        public ActionResult Create([Bind(Include = "ID,Description,priority")] Uncompleted_List_Item list_Items)
         {
             if (ModelState.IsValid)
             {
@@ -98,13 +160,32 @@ namespace DoListFinal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Description,priority")] List_Items list_Items)
+        public ActionResult Edit([Bind(Include = "ID,Description,priority,is_complete")] List_Items list_Items)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(list_Items).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                list_Items.User_ID = User.Identity.GetUserId();
+                if (list_Items.is_complete == true)
+                {
+                    Completed_List_Items complete_edited = new Completed_List_Items(list_Items.Description, list_Items.priority, list_Items.User_ID);
+                    List_Items to_remove = db.List_Items.Find(list_Items.ID);
+                    db.List_Items.Remove(to_remove);
+                    db.Completed_List_Items.Add(complete_edited);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (list_Items.is_complete == false)
+                {
+                    Uncompleted_List_Item uncomplete_edited = new Uncompleted_List_Item(list_Items.Description, list_Items.priority, list_Items.User_ID);
+                    List_Items to_remove = db.List_Items.Find(list_Items.ID);
+                    db.List_Items.Remove(to_remove);
+                    db.Uncompleted_List_Items.Add(uncomplete_edited);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+
+                return HttpNotFound();
             }
             return View(list_Items);
         }

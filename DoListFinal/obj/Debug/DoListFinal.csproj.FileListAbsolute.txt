@@ -80,8 +80,8 @@ c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFi
 c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.csprojResolveAssemblyReference.cache
 c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.dll
 c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.pdb
-c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.csproj.GenerateResource.Cache
-c:\users\andrew_jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.initial.resources
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.User_ID.resources
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.init2.resources
-C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.list_items.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.initial.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.csproj.GenerateResource.Cache
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.testinher.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.testinher2.resources
+C:\Users\Andrew_Jones\documents\visual studio 2015\Projects\DoListFinal\DoListFinal\obj\Debug\DoListFinal.Migrations.bool_complete.resources

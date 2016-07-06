@@ -31,6 +31,8 @@ namespace DoListFinal.Models
         }
 
         public System.Data.Entity.DbSet<DoListFinal.Models.List_Items> List_Items { get; set; }
+        public System.Data.Entity.DbSet<DoListFinal.Models.Completed_List_Items> Completed_List_Items { get; set; }
+        public System.Data.Entity.DbSet<DoListFinal.Models.Uncompleted_List_Item> Uncompleted_List_Items { get; set; }
 
       //  public System.Data.Entity.DbSet<DoListFinal.Models.UserBank> UserBanks { get; set; }
     }
