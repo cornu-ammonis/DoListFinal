@@ -20,5 +20,15 @@ namespace DoListFinal.Models
         {
 
         }
+
+        public override ApplicationDbContext toggle_complete(ApplicationDbContext working_db)
+        {
+            Uncompleted_List_Item marked_complete = new Uncompleted_List_Item(Description, priority, User_ID);
+            working_db.List_Items.Remove(this);
+            working_db.Uncompleted_List_Items.Add(marked_complete);
+            return working_db;
+
+        }
+    
     }
 }

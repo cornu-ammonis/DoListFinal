@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.priority)
             </td>
             <td>
-                @Html.ActionLink("Done ", "Mark_Complete", new { id = item.ID })| <!--  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+                @Html.ActionLink("Done ", "toggle", new { id = item.ID })| <!--  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
               <!---   //Html.ActionLink("Details", "Details", new { id = item.ID }) |-->
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
@@ -56,7 +56,7 @@
                 (completed)
             </td>
             <td>
-                @Html.ActionLink("Done ", "Mark_Uncomplete", new { id = item.ID }) | <!-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+                @Html.ActionLink("Done ", "toggle", new { id = item.ID }) | <!-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID })    |
                <!--- Html.ActionLink("Details", "Details", new { id = item.ID }) |--> 
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 

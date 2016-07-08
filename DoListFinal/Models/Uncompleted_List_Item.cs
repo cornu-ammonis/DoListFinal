@@ -22,5 +22,13 @@ namespace DoListFinal.Models
             is_complete = false;
         }
 
+        public override ApplicationDbContext toggle_complete(ApplicationDbContext working_db)
+        {
+            Completed_List_Items marked_complete = new Completed_List_Items(Description, priority, User_ID);
+            working_db.List_Items.Remove(this);
+            working_db.Completed_List_Items.Add(marked_complete);
+            return working_db;
+        }
+
     }
 }

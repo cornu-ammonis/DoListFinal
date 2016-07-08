@@ -41,13 +41,10 @@ namespace DoListFinal.Controllers
                    orderby q.priority
                    select q;
 
-            bool which_list = false;
+            
             foreach (Completed_List_Items L in CompletedListQuery)
             {
-                if (L != null)
-                {
-                    which_list = true;
-                }
+                
                 completed_list_for_view.Add(L);
             }
 
@@ -59,42 +56,42 @@ namespace DoListFinal.Controllers
         }
 
 
-        public ActionResult Mark_Complete(int? id)
+       public ActionResult toggle(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List_Items list_item = db.List_Items.Find(id);
-            if (list_item == null)
-            {
-                return HttpNotFound();
-            }
+           
 
-            Completed_List_Items completed_to_add = new Completed_List_Items(list_item.Description, list_item.priority, list_item.User_ID);
-            db.List_Items.Remove(list_item);
-            db.Completed_List_Items.Add(completed_to_add);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Mark_Uncomplete (int? id)
-        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List_Items list_item = db.List_Items.Find(id);
+            var list_item = db.List_Items.Find(id);
+
             if (list_item == null)
             {
                 return HttpNotFound();
             }
 
-            Uncompleted_List_Item uncompleted_to_add = new Uncompleted_List_Item(list_item.Description, list_item.priority, list_item.User_ID);
-            db.List_Items.Remove(list_item);
-            db.Uncompleted_List_Items.Add(uncompleted_to_add);
+            /* if(db.List_Items.Find(id).is_complete == true)
+            {
+                Completed_List_Items list_item = db.Completed_List_Items.Find(id);
+                db = list_item.toggle_complete(db);
+                db.SaveChanges();
+            }
+            else if (db.List_Items.Find(id).is_complete == false)
+            {
+                Uncompleted_List_Item list_item = db.Uncompleted_List_Items.Find(id);
+                db = list_item.toggle_complete(db);
+                db.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
+            } */
+
+            db = list_item.toggle_complete(db);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -165,27 +162,32 @@ namespace DoListFinal.Controllers
             if (ModelState.IsValid)
             {
                 list_Items.User_ID = User.Identity.GetUserId();
-                if (list_Items.is_complete == true)
-                {
-                    Completed_List_Items complete_edited = new Completed_List_Items(list_Items.Description, list_Items.priority, list_Items.User_ID);
-                    List_Items to_remove = db.List_Items.Find(list_Items.ID);
-                    db.List_Items.Remove(to_remove);
-                    db.Completed_List_Items.Add(complete_edited);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else if (list_Items.is_complete == false)
-                {
-                    Uncompleted_List_Item uncomplete_edited = new Uncompleted_List_Item(list_Items.Description, list_Items.priority, list_Items.User_ID);
-                    List_Items to_remove = db.List_Items.Find(list_Items.ID);
-                    db.List_Items.Remove(to_remove);
-                    db.Uncompleted_List_Items.Add(uncomplete_edited);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                /*   if (list_Items.is_complete == true)
+                   {
+                       Completed_List_Items complete_edited = new Completed_List_Items(list_Items.Description, list_Items.priority, list_Items.User_ID);
+                       List_Items to_remove = db.List_Items.Find(list_Items.ID);
+                       db.List_Items.Remove(to_remove);
+                       db.Completed_List_Items.Add(complete_edited);
+                       db.SaveChanges();
+                       return RedirectToAction("Index");
+                   }
+                   else if (list_Items.is_complete == false)
+                   {
+                       Uncompleted_List_Item uncomplete_edited = new Uncompleted_List_Item(list_Items.Description, list_Items.priority, list_Items.User_ID);
+                       List_Items to_remove = db.List_Items.Find(list_Items.ID);
+                       db.List_Items.Remove(to_remove);
+                       db.Uncompleted_List_Items.Add(uncomplete_edited);
+                       db.SaveChanges();
+                       return RedirectToAction("Index");
 
-                }
+                   }
 
-                return HttpNotFound();
+                   return HttpNotFound();
+                   */
+                db = list_Items.implement_edit(db);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
             }
             return View(list_Items);
         }
